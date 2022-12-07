@@ -50,13 +50,13 @@ public class Input {
         if(Valid.checkAnswerNumber(answer)){
             throw new IllegalArgumentException("[ERROR] 정답 수는 숫자만 입력해주세요.");
         }
-        if(Valid.checkAnswerRepeat(answer)){
+        if(Valid.checkAnswerRepeat(answer) || Valid.checkAnswerNotInRange(answer)){
             throw new IllegalArgumentException("[ERROR] 정답 수는 중복 없이 1-45 사이 6개 숫자를 입력해주세요.");
         }
     }
 
     private void validateBonus(String bonus, String[] answer) {
-        if (Valid.checkBonusMany(bonus) || Valid.checkBonusRepeat(bonus, answer)) {
+        if (Valid.checkBonusMany(bonus) || Valid.checkBonusRepeat(bonus, answer) || Valid.checkBonusNotInRange(bonus)) {
             throw new IllegalArgumentException("[ERROR] 보너스 수는 정답 수와 중복되지 않는 하나의 수입니다.");
         }
     }

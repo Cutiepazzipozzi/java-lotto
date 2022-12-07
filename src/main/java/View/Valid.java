@@ -28,6 +28,16 @@ public class Valid {
         return !(numbers.length == hashSet.size());
     }
 
+    public static boolean checkAnswerNotInRange(String answer) {
+        String[] splitArray = answer.split(",");
+        for (String s : splitArray) {
+            if (!(Integer.parseInt(s) >= 1 && Integer.parseInt(s) <= 45)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static boolean checkBonusMany(String bonus) {
         return !(bonus.length() == 1);
     }
@@ -36,4 +46,8 @@ public class Valid {
         return Arrays.stream(answer).anyMatch(bonus::equals);
     }
 
+    public static boolean checkBonusNotInRange(String bonus) {
+        int bonusNum = Integer.parseInt(bonus);
+        return !(bonusNum >= 1 && bonusNum <= 45);
+    }
 }
