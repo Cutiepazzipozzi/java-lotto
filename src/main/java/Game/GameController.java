@@ -29,7 +29,7 @@ public class GameController {
         String price = input.inputPrice();
         this.generateLottos(Integer.parseInt(price));
         this.inputAnswer();
-        this.handleOutput(this.handleWinning(), Integer.parseInt(price));;
+        this.handleOutput(this.handleWinning(), Integer.parseInt(price));
     }
 
     public void generateLottos(int price) {
@@ -39,30 +39,8 @@ public class GameController {
 
     public void inputAnswer() {
         String[] answer = input.inputAnswer();
-        List<Integer> newAnswer = new ArrayList<>();
-        for (String s : answer) {
-            newAnswer.add(Integer.parseInt(s));
-        }
-        int bonus = Integer.parseInt(input.inputBonus(answer));
-        this.answerLotto = new AnswerLotto(newAnswer, bonus);
-    }
-
-    public int countWinning(List<Integer> lotto, List<Integer> answer, int bonus) {
-        int count = 0;
-        for (Integer num : lotto) {
-            if (answer.contains(num)) {
-                count++;
-            }
-        }
-        count = this.countBonus(count, lotto, bonus);
-        return count;
-    }
-
-    public int countBonus(int count, List<Integer> lotto, int bonus) {
-        if (count == 5 && lotto.contains(bonus)) {
-            count = 7;
-        }
-        return count;
+        String bonus = input.inputBonus(answer);
+        answerLotto = new AnswerLotto(answer, bonus);
     }
 
     public void divideRank(int count, List<Integer> rank) {
@@ -78,8 +56,8 @@ public class GameController {
     public List<Integer> handleWinning() {
         List<Integer> rank = new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0)); // 3 4 5 5+보 6
         for (int i = 0; i < lottos.getLottos().size(); i++) {
-            List<Integer> lotto = lottos.getLottos().get(i);
-            int count = this.countWinning(lotto, answerLotto.getAnswer(), answerLotto.getBonusNum());
+            List<Integer> lotto = this.lottos.getLottos().get(i);
+            int count = answerLotto.countWinning(lotto);
             this.divideRank(count, rank);
         }
         return rank;

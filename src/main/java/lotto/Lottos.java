@@ -10,7 +10,7 @@ public class Lottos {
 
     private int purchaseNumber = 0;
 
-    private List<List<Integer>> lottos = new ArrayList<>();
+    private List<List<Integer>> lottos;
 
     private Lotto lotto;
 

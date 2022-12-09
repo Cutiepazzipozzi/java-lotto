@@ -5,20 +5,36 @@ import java.util.List;
 
 public class AnswerLotto {
 
-    private final List<Integer> answer;
+    private final List<Integer> answer = new ArrayList<>();
 
     private final int bonusNum;
 
-    public AnswerLotto(List<Integer> answerNum, int bonus) {
-        this.answer = answerNum;
-        this.bonusNum = bonus;
+    public AnswerLotto(String[] answer, String bonus) {
+        generateAnswer(answer);
+        bonusNum = Integer.parseInt(bonus);
     }
 
-    public List<Integer> getAnswer() {
-        return this.answer;
+    public void generateAnswer(String[] input) {
+        for (String s : input) {
+            answer.add(Integer.parseInt(s));
+        }
     }
 
-    public int getBonusNum() {
-        return this.bonusNum;
+    public int countWinning(List<Integer> lotto) {
+        int count = 0;
+        for (Integer num : lotto) {
+            if (answer.contains(num)) {
+                count++;
+            }
+        }
+        count = this.countBonus(count, lotto);
+        return count;
+    }
+
+    public int countBonus(int count, List<Integer> lotto) {
+        if (count == 5 && lotto.contains(bonusNum)) {
+            count = 7;
+        }
+        return count;
     }
 }
